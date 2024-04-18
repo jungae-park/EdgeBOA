@@ -51,7 +51,7 @@ models = {
     'inceptionv3': 0.17
 }
 
-selected_models = random.choices(list(models.keys()), k=1)
+selected_models = random.choices(list(models.keys()), k=10)
 
 selected_models_sorted = sorted(selected_models, key=lambda x: models[x])
 
@@ -66,7 +66,7 @@ inceptionv3_image_preprocessed=[]
 for model in selected_models:
     print(model)
     if models=='mobilenetv1':
-        if len(mobilenetv1_image_preprocessed)!=1:
+        if len(mobilenetv1_image_preprocessed)!=1000:
             for image_path in raw_image_path:
                 mobilenet_image = mobilenet_load_image(image_path)
                 mobilenet_image_array = image_to_array(mobilenet_image)
@@ -78,7 +78,7 @@ for model in selected_models:
                 preds = mobilenetv1_model.predict(inference_image)
             mobilenetv1.append(time.time()-start_time)
     elif model=='mobilenetv2':
-        if len(mobilenetv2_image_preprocessed)!=1:
+        if len(mobilenetv2_image_preprocessed)!=1000:
             for image_path in raw_image_path:
                 mobilenet_image = mobilenet_load_image(image_path)
                 mobilenet_image_array = image_to_array(mobilenet_image)
@@ -91,7 +91,7 @@ for model in selected_models:
                 preds = mobilenetv2_model.predict(inference_image)
             mobilenetv2.append(time.time()-start_time)
     else:
-        if len(inceptionv3_image_preprocessed)!=1:
+        if len(inceptionv3_image_preprocessed)!=1000:
             for image_path in raw_image_path:
                 inception_image = inception_load_image(image_path)
                 inception_image_array = image_to_array(inception_image)
