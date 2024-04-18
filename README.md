@@ -7,6 +7,6 @@ docker pull kmubigdata/edge-inference:latest
 docker run --privileged --gpus all --shm-size 10G -it kmubigdata/edge-inference /bin/bash
 
 # dataset, model download
-chmod +x data_model.sh
-./ data_model.sh
+chmod +x dataset_model.sh
+./ dataset_model.sh
 
