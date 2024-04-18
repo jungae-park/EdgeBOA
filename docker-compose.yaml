@@ -1,0 +1,26 @@
+version: '3'
+services:
+  rr(sjf or bless):
+    image: kmubigdata/edge-inference
+    stdin_open: true
+    tty: true
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              capabilities: [gpu]
+    volumes:
+      - ./data-model.sh:/container-data-model.sh
+      - ./BOA.py:/BOA.py
+      - ./rr_inference_raw.py:/rr_inference_raw.py
+      - ./sjf_inference_raw.py:/sjf_inference_raw.py
+      - ./bless_inference_raw.py:/bless_inference_raw.py
+      - ./result:/result
+    command: sh -c "
+            chmod +x /dataset_model.sh &&
+            /dataset_model.sh &&
+            python3 rr_inference_raw.py >> /result/rr.txt &&
+            python3 sjf_inference_raw.py >> /result/sjf.txt &&
+            python3 bless_inference_raw.py >> /result/bless.txt &&
+            tail -F /dev/null"
